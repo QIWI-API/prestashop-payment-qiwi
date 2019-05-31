@@ -1,0 +1,100 @@
+{
+    "name": "qiwi/prestashop-payment-qiwi",
+    "type": "prestashop-module",
+    "version": "0.0.1",
+    "description": "QIWI payment integration for PrestaShop",
+    "keywords": [
+        "qiwi",
+        "payment",
+        "prestashop"
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/QIWI-API/prestashop-payment-qiwi",
+    "support": {
+        "issues": "https://github.com/QIWI-API/prestashop-payment-qiwi/issues"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://wpackagist.org"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "prestashop/prestashop",
+                "version": "1.7.5.2",
+                "dist": {
+                    "url": "https://github.com/PrestaShop/PrestaShop/archive/1.7.5.2.zip",
+                    "type": "zip"
+                },
+                "autoload": {
+                    "classmap": ["classes/"],
+                    "psr-4": {
+                        "PrestaShop\\PrestaShop\\": "src/"
+                    }
+                }
+            }
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Qiwi\\": "src/"
+        },
+        "files": ["qiwi_payment.php"]
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=5.6.0",
+        "ext-json": "*",
+        "qiwi/bill-payments-php-sdk": "^0",
+        "composer/installers": "~1.0"
+    },
+    "require-dev": {
+        "wannabe-pro/composer-release-plugin-zip": "*",
+        "squizlabs/php_codesniffer" : "3.4.*",
+        "prestashop/prestashop": "1.7.5.2"
+    },
+    "scripts": {
+        "test": [
+            "composer validate --no-interaction",
+            "phpcs --encoding=utf-8 --standard=PSR2 --report-checkstyle=reports/checkstyle-phpcs.xml --report-full --extensions=php qiwi_payment.php src/*"
+        ]
+    },
+    "extra": {
+        "build-plugin-dev": {
+            "build/qiwi.zip": {
+                "builder": "zip",
+                "composer": {
+                    "autoload": {
+                        "psr-4": {
+                            "Qiwi\\": "src/"
+                        }
+                    },
+                    "minimum-stability": "stable",
+                    "prefer-stable": true,
+                    "require": {
+                        "qiwi/bill-payments-php-sdk": "^0"
+                    },
+                    "config": {
+                        "optimize-autoloader": true,
+                        "platform": {
+                            "php": "5.6.0"
+                        }
+                    }
+                },
+                "mapper": {
+                    "/^.*\\.tpl$/": "/qiwi/$0",
+                    "/^.*\\.php$/": "/qiwi/$0",
+                    "/^.*logo\\.png$/": "/qiwi/$0",
+                    "/^.*payment\\.png$/": "/qiwi/$0",
+                    "/^.*cacert\\.pem$/": "/qiwi/$0",
+                    "/tests?/": false,
+                    "/jautoload\\.php$/": false,
+                    "/psalm-autoload\\.php$/": false,
+                    "/build_phar\\.php$/": false
+                }
+            }
+        }
+    }
+}
