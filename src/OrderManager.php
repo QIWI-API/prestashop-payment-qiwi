@@ -1,9 +1,9 @@
 <?php
-/*
-*  @author Yaroslav <yaroslav@wannabe.pro>
-*  @copyright  2019 QIWI
-*  @license    https://www.opensource.org/licenses/MIT  MIT License
-*/
+/**
+ *  @author Yaroslav <yaroslav@wannabe.pro>
+ *  @copyright  2019 QIWI
+ *  @license    https://www.opensource.org/licenses/MIT  MIT License
+ */
 
 namespace Qiwi;
 

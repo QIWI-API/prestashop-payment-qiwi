@@ -1,16 +1,16 @@
 <?php
-/*
-*  @author Yaroslav <yaroslav@wannabe.pro>
-*  @copyright  2019 QIWI
-*  @license    https://www.opensource.org/licenses/MIT  MIT License
-*/
+/**
+ *  @author Yaroslav <yaroslav@wannabe.pro>
+ *  @copyright  2019 QIWI
+ *  @license    https://www.opensource.org/licenses/MIT  MIT License
+ */
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
 // Autoload for standalone composer build.
-if (file_exists( _PS_MODULE_DIR_ . 'kassaqiwi/vendor/autoload.php')) {
+if (file_exists(_PS_MODULE_DIR_ . 'kassaqiwi/vendor/autoload.php')) {
     require_once _PS_MODULE_DIR_ . 'kassaqiwi/vendor/autoload.php';
 }
 
@@ -26,6 +26,7 @@ class Kassaqiwi extends PaymentModule
         $this->name = 'kassaqiwi';
         $this->tab = 'payments_gateways';
         $this->version = '0.0.1';
+        $this->module_key = 'f7b84666812c788ff4400fa49529f26d';
         $this->ps_versions_compliancy = ['min' => '1.6', 'max' => _PS_VERSION_];
         $this->author = 'QIWI';
         $this->controllers = ['process', 'cancel', 'webhook'];
