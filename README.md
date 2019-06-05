@@ -2,7 +2,7 @@
 
 # Installation
 
-1. Download `qiwi.zip` from release.
+1. Download `kassaqiwi.zip` from release.
 2. Goto you admin-panel magazine page.
 3. Check module menager and upload new module.
 4. Select downloaded file and send it.
