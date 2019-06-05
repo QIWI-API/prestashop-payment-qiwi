@@ -1,10 +1,14 @@
 <?php
+/*
+*  @author Yaroslav <yaroslav@wannabe.pro>
+*  @copyright  2019 QIWI
+*  @license    https://www.opensource.org/licenses/MIT  MIT License
+*/
 
 namespace Qiwi;
 
 if (!defined('_PS_VERSION_')) {
-    header("Location: ../");
-    die('No direct script access');
+    exit;
 }
 
 if (!defined('CLIENT_NAME')) {
@@ -38,7 +42,7 @@ class Client extends BillPayments
     public function __construct($key = '', $options = [])
     {
         // Setup CURL options.
-        $ca_path = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'cacert.pem';
+        $ca_path = realpath('../cacert.pem');
         if (is_file($ca_path)) {
             $options[CURLOPT_SSL_VERIFYPEER] = true;
             $options[CURLOPT_SSL_VERIFYHOST] = 2;

@@ -1,16 +1,21 @@
 <?php
+/*
+*  @author Yaroslav <yaroslav@wannabe.pro>
+*  @copyright  2019 QIWI
+*  @license    https://www.opensource.org/licenses/MIT  MIT License
+*/
 
 if (!defined('_PS_VERSION_')) {
-    exit();
+    exit;
 }
 
 use Qiwi\Client;
 use Qiwi\OrderManager;
 
 /**
- * @property-read \Qiwi $module
+ * @property-read \Kassaqiwi $module
  */
-class QiwiProcessModuleFrontController extends ModuleFrontController
+class KassaqiwiProcessModuleFrontController extends ModuleFrontController
 {
     public function postProcess()
     {
@@ -42,7 +47,7 @@ class QiwiProcessModuleFrontController extends ModuleFrontController
 
         $bill = $this->apiCreateBill($billId, $cart);
 
-        header('Location: ' . $bill['payUrl']);
+        Tools::redirect($bill['payUrl']);
         die();
     }
 

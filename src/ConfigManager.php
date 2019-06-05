@@ -1,9 +1,14 @@
 <?php
+/*
+*  @author Yaroslav <yaroslav@wannabe.pro>
+*  @copyright  2019 QIWI
+*  @license    https://www.opensource.org/licenses/MIT  MIT License
+*/
 
 namespace Qiwi;
 
 if (!defined('_PS_VERSION_')) {
-    exit();
+    exit;
 }
 
 use Configuration;
@@ -30,8 +35,7 @@ class ConfigManager
         $orderPartialRefunded = $this->createOrderStatus($names[4], '#533F2E');
         $orderFullRefunded = $this->createOrderStatus($names[5], '#756558');
 
-        if (
-            Configuration::updateValue('QIWI_SECRET_KEY', '')
+        if (Configuration::updateValue('QIWI_SECRET_KEY', '')
             && Configuration::updateValue('QIWI_THEME_CODE', '')
             && Configuration::updateValue('QIWI_USE_POPUP', false)
             && Configuration::updateValue('QIWI_LIVE_TIME', 40)
@@ -72,8 +76,7 @@ class ConfigManager
         $orderPartialRefunded = new OrderState(Configuration::get('QIWI_STATUS_PARTIAL_REFUNDED'));
         $orderFullRefunded = new OrderState(Configuration::get('QIWI_STATUS_FULL_REFUNDED'));
 
-        if (
-            Configuration::deleteByName('QIWI_SECRET_KEY')
+        if (Configuration::deleteByName('QIWI_SECRET_KEY')
             && Configuration::deleteByName('QIWI_THEME_CODE')
             && Configuration::deleteByName('QIWI_USE_POPUP')
             && Configuration::deleteByName('QIWI_LIVE_TIME')

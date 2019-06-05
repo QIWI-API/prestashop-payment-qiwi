@@ -1,9 +1,14 @@
 <?php
+/*
+*  @author Yaroslav <yaroslav@wannabe.pro>
+*  @copyright  2019 QIWI
+*  @license    https://www.opensource.org/licenses/MIT  MIT License
+*/
 
 namespace Qiwi;
 
 if (!defined('_PS_VERSION_')) {
-    exit();
+    exit;
 }
 
 use Currency;

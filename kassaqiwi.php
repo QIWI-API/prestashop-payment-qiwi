@@ -1,30 +1,29 @@
 <?php
-
-/**
- * @package       QIWI Payment Module for Prestashop
- * @copyright     (c) 2019 QIWI. All rights reserved.
- * @license       MIT License, see https://github.com/QIWI/Prestashop/blob/master/LICENSE.md
- */
+/*
+*  @author Yaroslav <yaroslav@wannabe.pro>
+*  @copyright  2019 QIWI
+*  @license    https://www.opensource.org/licenses/MIT  MIT License
+*/
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
 // Autoload for standalone composer build.
-if (file_exists(__DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php')) {
-    require_once __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+if (file_exists( _PS_MODULE_DIR_ . 'kassaqiwi/vendor/autoload.php')) {
+    require_once _PS_MODULE_DIR_ . 'kassaqiwi/vendor/autoload.php';
 }
 
 use Qiwi\ConfigManager;
 use PrestaShop\PrestaShop\Core\Payment\PaymentOption;
 
-class Qiwi extends PaymentModule
+class Kassaqiwi extends PaymentModule
 {
     private $configManager;
 
     public function __construct()
     {
-        $this->name = 'qiwi';
+        $this->name = 'kassaqiwi';
         $this->tab = 'payments_gateways';
         $this->version = '0.0.1';
         $this->ps_versions_compliancy = ['min' => '1.6', 'max' => _PS_VERSION_];
@@ -50,9 +49,7 @@ class Qiwi extends PaymentModule
     public function install()
     {
         // If anything fails during installation, return false which will raise an error to the user.
-        if (
-            !parent::install() ||
-            !$this->registerHook('payment') ||
+        if (!parent::install() ||
             !$this->registerHook('paymentOptions') ||
             !$this->registerHook('paymentReturn') ||
             !$this->configManager->addFields([
@@ -99,33 +96,19 @@ class Qiwi extends PaymentModule
         $paymentOption = new PaymentOption();
         $paymentOption->setCallToActionText($this->l('Payment ower QIWI Kassa'))
             ->setAction($this->context->link->getModuleLink($this->name, 'process', [], true))
-            ->setAdditionalInformation($this->context->smarty->fetch('module:qiwi/views/templates/front/payment_infos.tpl'))
-            ->setLogo(Media::getMediaPath(_PS_MODULE_DIR_ . $this->name . '/payment.png'));
+            ->setAdditionalInformation($this->context->smarty
+                ->fetch('module:kassaqiwi/views/templates/front/payment_infos.tpl'))
+            ->setLogo(Media::getMediaPath(_PS_MODULE_DIR_ . $this->name . '/views/img/payment.png'));
         $paymentOptions = [$paymentOption];
 
         return $paymentOptions;
-    }
-
-    public function hookPayment()
-    {
-        if (!$this->active) {
-            return;
-        }
-
-        $this->smarty->assign([
-            'this_path' => $this->_path,
-            'this_path_qiwi' => $this->_path,
-            'this_path_ssl' => Tools::getShopDomainSsl(true, true) . __PS_BASE_URI__ . 'modules/' . $this->name . '/',
-        ]);
-
-        return $this->display(__FILE__, 'payment.tpl');
     }
 
     public function hookDisplayPaymentEU()
     {
         $payment_options = [
             'cta_text' => $this->l('QIWI Kassa'),
-            'logo' => Media::getMediaPath(_PS_MODULE_DIR_ . $this->name . '/payment.png'),
+            'logo' => Media::getMediaPath(_PS_MODULE_DIR_ . $this->name . '/views/img/payment.png'),
             'action' => $this->context->link->getModuleLink($this->name, 'process', array(), true)
         ];
 
@@ -160,18 +143,23 @@ class Qiwi extends PaymentModule
      */
     public function displayForm()
     {
+        $fields_form = [0 => []];
         $fields_form[0]['form'] = [
             'legend' => [
                 'title' => $this->l('Settings'),
             ],
-            'description' => '<p>' . $this->l('To start working with the QIWI cash service, you need to ') . '<a href="https://kassa.qiwi.com/" target="_blank">' . $this->l('register a store.') . '</a></p>'
-                           . '<p>' . $this->l('Also, a ') . '<a href="https://kassa.qiwi.com/" target="_blank">' . $this->l('demonstration stand') . '</a>' . $this->l(' is available for you.') . '</p>',
+            'description' => '<p>' . $this->l('To start working with the QIWI cash service, you need to ')
+                . '<a href="https://kassa.qiwi.com/" target="_blank">' . $this->l('register a store.') . '</a></p>'
+                . '<p>' . $this->l('Also, a ') . '<a href="https://kassa.qiwi.com/" target="_blank">'
+                . $this->l('demonstration stand') . '</a>' . $this->l(' is available for you.') . '</p>',
             'input' => [
                 [
                     'type' => 'html',
-                    'html_content' => '<label class="control-label col-lg-3">' . $this->l('Notification address') . '</label>'
-                                    . '<input type="text" value="' . $this->context->link->getModuleLink($this->name, 'webhook', array(), true) . '" readonly="readonly">'
-                                    . '<p class="help-block">' . $this->l('Set this value in the payment system store settings.') . '</p>',
+                    'html_content' => '<label class="control-label col-lg-3">' . $this->l('Notification address')
+                        . '</label>' . '<input type="text" value="'
+                        . $this->context->link->getModuleLink($this->name, 'webhook', array(), true)
+                        . '" readonly="readonly">' . '<p class="help-block">'
+                        . $this->l('Set this value in the payment system store settings.') . '</p>',
                 ],
                 [
                     'type' => 'text',
@@ -183,7 +171,8 @@ class Qiwi extends PaymentModule
                 [
                     'type' => 'text',
                     'label' => $this->l('Theme style code'),
-                    'desc' => $this->l('Personalization code of the payment form style is presented in the payment system store settings.'),
+                    'desc' => $this->l('Personalization code of the payment form style is presented in the payment'
+                        . ' system store settings.'),
                     'name' => 'QIWI_THEME_CODE',
                 ],
                 [

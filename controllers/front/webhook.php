@@ -1,15 +1,20 @@
 <?php
+/*
+*  @author Yaroslav <yaroslav@wannabe.pro>
+*  @copyright  2019 QIWI
+*  @license    https://www.opensource.org/licenses/MIT  MIT License
+*/
 
 if (!defined('_PS_VERSION_')) {
-    exit();
+    exit;
 }
 
 use Qiwi\Client;
 
 /**
- * @property-read \Qiwi $module
+ * @property-read \Kassaqiwi $module
  */
-class QiwiWebhookModuleFrontController extends ModuleFrontController
+class KassaqiwiWebhookModuleFrontController extends ModuleFrontController
 {
     public function postProcess()
     {
@@ -17,8 +22,10 @@ class QiwiWebhookModuleFrontController extends ModuleFrontController
         $body = null;
         $client = new Client();
         try {
-            $sign = array_key_exists('HTTP_X_API_SIGNATURE_SHA256', $_SERVER) ? stripslashes($_SERVER['HTTP_X_API_SIGNATURE_SHA256']) : '';
-            $body = file_get_contents('php://input');
+            $sign = array_key_exists('HTTP_X_API_SIGNATURE_SHA256', $_SERVER)
+                ? Tools::stripslashes($_SERVER['HTTP_X_API_SIGNATURE_SHA256'])
+                : '';
+            $body = Tools::file_get_contents('php://input');
             $notice = json_decode($body, true);
             if ($client->checkNotificationSignature($sign, $notice, Configuration::get('QIWI_SECRET_KEY'))) {
                 $orderId = (int) $notice['bill']['customFields']['orederId'];
