@@ -144,23 +144,23 @@ class Kassaqiwi extends PaymentModule
      */
     public function displayForm()
     {
+        $this->context->smarty->assign([
+            'qiwi_notification' => $this->context->link->getModuleLink($this->name, 'webhook', array(), true),
+        ]);
+        $description = $this->context->smarty->fetch($this->local_path . 'views/templates/admin/description.tpl');
+        $notification = $this->context->smarty->fetch($this->local_path . 'views/templates/admin/notification.tpl');
         $fields_form = [0 => []];
         $fields_form[0]['form'] = [
             'legend' => [
                 'title' => $this->l('Settings'),
             ],
-            'description' => '<p>' . $this->l('To start working with the QIWI cash service, you need to ')
-                . '<a href="https://kassa.qiwi.com/" target="_blank">' . $this->l('register a store.') . '</a></p>'
-                . '<p>' . $this->l('Also, a ') . '<a href="https://kassa.qiwi.com/" target="_blank">'
-                . $this->l('demonstration stand') . '</a>' . $this->l(' is available for you.') . '</p>',
+            'description' => $description,
             'input' => [
                 [
                     'type' => 'html',
-                    'html_content' => '<label class="control-label col-lg-3">' . $this->l('Notification address')
-                        . '</label>' . '<input type="text" value="'
-                        . $this->context->link->getModuleLink($this->name, 'webhook', array(), true)
-                        . '" readonly="readonly">' . '<p class="help-block">'
-                        . $this->l('Set this value in the payment system store settings.') . '</p>',
+                    'label' => $this->l('Notification address'),
+                    'html_content' => $notification,
+                    'desc' => $this->l('Set this value in the payment system store settings.'),
                 ],
                 [
                     'type' => 'text',
@@ -172,8 +172,8 @@ class Kassaqiwi extends PaymentModule
                 [
                     'type' => 'text',
                     'label' => $this->l('Theme style code'),
-                    'desc' => $this->l('Personalization code of the payment form style is presented in the payment'
-                        . ' system store settings.'),
+                    'desc' => $this->l('Personalization code of payment form style is presented in the payment system
+                     store settings.'),
                     'name' => 'QIWI_THEME_CODE',
                 ],
                 [
