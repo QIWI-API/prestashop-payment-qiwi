@@ -9,10 +9,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-// Autoload for standalone composer build.
-if (file_exists(_PS_MODULE_DIR_ . 'kassaqiwi/vendor/autoload.php')) {
-    require_once _PS_MODULE_DIR_ . 'kassaqiwi/vendor/autoload.php';
-}
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'load.php';
 
 use Qiwi\ConfigManager;
 use PrestaShop\PrestaShop\Core\Payment\PaymentOption;
@@ -25,7 +22,7 @@ class Kassaqiwi extends PaymentModule
     {
         $this->name = 'kassaqiwi';
         $this->tab = 'payments_gateways';
-        $this->version = '0.0.1';
+        $this->version = '0.0.2';
         $this->module_key = 'f7b84666812c788ff4400fa49529f26d';
         $this->ps_versions_compliancy = ['min' => '1.6', 'max' => _PS_VERSION_];
         $this->author = 'QIWI';
