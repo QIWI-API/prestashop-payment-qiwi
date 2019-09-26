@@ -1,7 +1,7 @@
 {
     "name": "qiwi/prestashop-payment-qiwi",
     "type": "prestashop-module",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "QIWI payment integration for PrestaShop",
     "keywords": [
         "qiwi",
@@ -46,6 +46,7 @@
     "prefer-stable": true,
     "require": {
         "php": ">=5.6.0",
+        "ext-curl": "*",
         "ext-json": "*",
         "qiwi/bill-payments-php-sdk": "^0",
         "composer/installers": "~1.0"
@@ -63,36 +64,27 @@
     },
     "extra": {
         "build-plugin-dev": {
-            "build/qiwi.zip": {
+            "build/kassaqiwi.zip": {
                 "builder": "zip",
                 "composer": {
-                    "autoload": {
-                        "psr-4": {
-                            "Qiwi\\": "src/"
-                        }
-                    },
                     "minimum-stability": "stable",
                     "prefer-stable": true,
                     "require": {
                         "qiwi/bill-payments-php-sdk": "^0"
                     },
                     "config": {
-                        "optimize-autoloader": true,
                         "platform": {
                             "php": "5.6.0"
                         }
                     }
                 },
                 "mapper": {
-                    "/^.*\\.tpl$/": "/qiwi/$0",
-                    "/^.*\\.php$/": "/qiwi/$0",
-                    "/^.*logo\\.png$/": "/qiwi/$0",
-                    "/^.*payment\\.png$/": "/qiwi/$0",
-                    "/^.*cacert\\.pem$/": "/qiwi/$0",
-                    "/tests?/": false,
-                    "/jautoload\\.php$/": false,
-                    "/psalm-autoload\\.php$/": false,
-                    "/build_phar\\.php$/": false
+                    "/^.*\\.tpl$/": "/kassaqiwi/$0",
+                    "/^.*\\.php$/": "/kassaqiwi/$0",
+                    "/^.*logo\\.png$/": "/kassaqiwi/$0",
+                    "/^.*payment\\.png$/": "/kassaqiwi/$0",
+                    "/^.*cacert\\.pem$/": "/kassaqiwi/$0",
+                    "/^vendor((?!(BillPayments\\.php|BillPaymentsException\\.php|Curl\\.php)).)*$/": false
                 }
             }
         }

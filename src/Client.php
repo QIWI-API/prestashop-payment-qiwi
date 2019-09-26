@@ -11,24 +11,6 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-if (!defined('CLIENT_NAME')) {
-    /**
-     * The client name fingerprint.
-     *
-     * @const string
-     */
-    define('CLIENT_NAME', 'prestashop');
-}
-
-if (!defined('CLIENT_VERSION')) {
-    /**
-     * The client version fingerprint.
-     *
-     * @const string
-     */
-    define('CLIENT_VERSION', '0.0.1');
-}
-
 use Qiwi\Api\BillPayments;
 
 /**

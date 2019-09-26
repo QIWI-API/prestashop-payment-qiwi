@@ -9,6 +9,8 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+require_once dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'load.php';
+
 use Qiwi\Client;
 
 /**
