@@ -158,6 +158,7 @@ class Kassaqiwi extends PaymentModule
                     'label' => $this->l('Notification address'),
                     'html_content' => $notification,
                     'desc' => $this->l('Set this value in the payment system store settings.'),
+                    'name' => 'QIWI_NOTIFICATION',
                 ],
                 [
                     'type' => 'text',

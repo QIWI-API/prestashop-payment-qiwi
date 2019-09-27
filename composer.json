@@ -40,7 +40,7 @@
         "psr-4": {
             "Qiwi\\": "src/"
         },
-        "files": ["qiwi_payment.php"]
+        "files": ["kassaqiwi.php"]
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -52,15 +52,12 @@
         "composer/installers": "~1.0"
     },
     "require-dev": {
-        "wannabe-pro/composer-release-plugin-zip": "*",
+        "wannabe-pro/composer-release-plugin-zip": "^0",
         "squizlabs/php_codesniffer" : "3.4.*",
         "prestashop/prestashop": "1.7.5.2"
     },
     "scripts": {
-        "test": [
-            "composer validate --no-interaction",
-            "phpcs --encoding=utf-8 --standard=PSR2 --report-checkstyle=reports/checkstyle-phpcs.xml --report-full --extensions=php qiwi_payment.php src/*"
-        ]
+        "code": "phpcs --encoding=utf-8 -s -p kassaqiwi.php src"
     },
     "extra": {
         "build-plugin-dev": {
