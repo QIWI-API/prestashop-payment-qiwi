@@ -77,11 +77,12 @@
                 },
                 "mapper": {
                     "/^.*\\.tpl$/": "/kassaqiwi/$0",
-                    "/^.*\\.php$/": "/kassaqiwi/$0",
+                    "/^(?!index.).*\\.php$/": "/kassaqiwi/$0",
                     "/^.*logo\\.png$/": "/kassaqiwi/$0",
                     "/^.*payment\\.png$/": "/kassaqiwi/$0",
                     "/^.*cacert\\.pem$/": "/kassaqiwi/$0",
-                    "/^vendor((?!(BillPayments\\.php|BillPaymentsException\\.php|Curl\\.php)).)*$/": false
+                    "/^vendor((?!(BillPayments\\.php|BillPaymentsException\\.php|Curl\\.php)).)*$/": false,
+                    "0": "index.rule.php"
                 }
             }
         }
