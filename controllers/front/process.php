@@ -60,7 +60,7 @@ class KassaqiwiProcessModuleFrontController extends ModuleFrontController
     {
         $authorized = false;
         foreach (Module::getPaymentModules() as $module) {
-            if ($module['name'] == 'qiwi') {
+            if ($module['name'] == 'kassaqiwi') {
                 $authorized = true;
                 break;
             }
