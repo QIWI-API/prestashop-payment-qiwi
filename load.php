@@ -24,7 +24,7 @@ if (!defined('CLIENT_VERSION')) {
      *
      * @const string
      */
-    define('CLIENT_VERSION', '0.0.2');
+    define('CLIENT_VERSION', '0.0.3');
 }
 
 // Autoload for standalone composer build.

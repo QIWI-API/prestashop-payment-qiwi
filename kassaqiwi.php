@@ -22,7 +22,7 @@ class Kassaqiwi extends PaymentModule
     {
         $this->name = 'kassaqiwi';
         $this->tab = 'payments_gateways';
-        $this->version = '0.0.2';
+        $this->version = '0.0.3';
         $this->module_key = 'f7b84666812c788ff4400fa49529f26d';
         $this->ps_versions_compliancy = ['min' => '1.6', 'max' => _PS_VERSION_];
         $this->author = 'QIWI';

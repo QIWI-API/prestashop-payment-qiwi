@@ -1,7 +1,7 @@
 {
     "name": "qiwi/prestashop-payment-qiwi",
     "type": "prestashop-module",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "QIWI payment integration for PrestaShop",
     "keywords": [
         "qiwi",
